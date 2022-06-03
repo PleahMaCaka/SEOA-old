@@ -1,0 +1,6 @@
+.idea
+build
+config.json
+SEOA.iml
+# 프로젝트 제외 경로
+/node_modules/
