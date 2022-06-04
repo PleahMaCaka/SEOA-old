@@ -2,6 +2,7 @@ import { Client } from "discordx";
 import { ALL_INTENTS } from "./utils/AllIntents";
 import { importx } from "@discordx/importer";
 import { TOKEN } from "../config.json";
+import { Logger } from "./utils/Logger";
 
 const client = new Client({
 	intents: ALL_INTENTS,
@@ -14,4 +15,6 @@ async function start() {
 	await client.login(TOKEN)
 }
 
-start()
+start().then(() => {
+	Logger.log("INFO", "Starting Discord Bot...")
+})

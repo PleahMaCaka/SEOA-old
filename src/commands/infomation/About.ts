@@ -26,8 +26,8 @@ export abstract class About {
 
 		const about = new MessageEmbed()
 			.setColor("#bc92ff")
-			.setTitle(`About ${client.user!!.username}`)
-			.setDescription(`${client.user!!.username} is ${description}`)
+			.setTitle(`About ${client.user!.username}`)
+			.setDescription(`${client.user!.username} is ${description}`)
 
 		//////////////////////////////
 		// BUTTON
