@@ -2,6 +2,10 @@
     "name": "seoa",
     "version": "0.0.1",
     "main": "src/start.ts",
+    "description": "discord bot with many features and localization",
+    "repository": {
+        "url": "https://github.com/PleahMaCaka/SEOA"
+    },
     "author": "PleahMaCaka <kkjuh0905@gmail.com>",
     "license": "MIT",
     "dependencies": {
