@@ -1,8 +1,7 @@
 import { Client } from "discordx";
 import { ALL_INTENTS } from "./utils/AllIntents";
 import { importx } from "@discordx/importer";
-
-const { TOKEN } = require("../config.json")
+import { TOKEN } from "../config.json";
 
 const client = new Client({
 	intents: ALL_INTENTS,
