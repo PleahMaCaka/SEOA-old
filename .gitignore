@@ -5,7 +5,8 @@ SEOA.iml
 
 # NOT NEEDS
 node_modules
+yarn-error.log
 build
 
 # TOP SECRET
-config.json
+.env

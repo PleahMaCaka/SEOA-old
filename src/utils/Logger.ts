@@ -1,3 +1,6 @@
+import "dotenv/config"
+import yn from "yn";
+
 /**
  * Original Source File:
  * https://github.com/PleahMaCaka/Logger-P/
@@ -59,7 +62,8 @@ export class Logger {
 				return console.log(color.red, `${date} [ERROR] :: ${content}`, color.reset)
 
 			case Level.DEBUG:
-				return console.log(color.blue, `${date} [DEBUG] :: ${content}`, color.reset)
+				if (yn(process.env.DEBUG)) return console.log(color.blue, `${date} [DEBUG] :: ${content}`, color.reset)
+				else return
 
 			case Level.CRITICAL:
 				return console.log(color.red + color.bold, `${date} [CRITICAL] :: ${content}`, color.reset)

@@ -1,8 +1,8 @@
 import { Client } from "discordx";
 import { ALL_INTENTS } from "./utils/AllIntents";
 import { importx } from "@discordx/importer";
-import { TOKEN } from "../config.json";
 import { Logger } from "./utils/Logger";
+import "dotenv/config"
 
 const client = new Client({
 	intents: ALL_INTENTS,
@@ -12,7 +12,12 @@ const client = new Client({
 
 async function start() {
 	await importx(__dirname + "/{events,commands}/**/*.{ts,js}")
-	await client.login(TOKEN)
+
+	if (!process.env.TOKEN)
+		return Logger.log("ERROR", "Stopped working because TOKEN didn't exist in *.env* file. The bot is not running.")
+	else await client.login(process.env.TOKEN!)
+
+	Logger.log("DEBUG", "Test")
 }
 
 start().then(() => {
