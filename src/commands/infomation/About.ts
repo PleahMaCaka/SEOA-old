@@ -14,7 +14,6 @@ export abstract class About {
 		//////////////////////////////
 		// EMBED
 		////////////////////
-
 		const about = new MessageEmbed()
 			.setColor("#bc92ff")
 			.setTitle(`About ${client.user!.username}`)
@@ -27,7 +26,6 @@ export abstract class About {
 		//////////////////////////////
 		// BUTTON
 		////////////////////
-
 		const githubBtn = new MessageButton()
 			.setURL(repository.url)
 			.setStyle(MessageButtonStyles.LINK)

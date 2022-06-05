@@ -13,7 +13,6 @@ export abstract class Invite {
 		//////////////////////////////
 		// EMBED
 		////////////////////
-
 		const invite = `https://discord.com/api/oauth2/authorize?client_id=${client.user!.id}&permissions=8&scope=bot%20applications.commands`
 
 		const embed = new MessageEmbed()
@@ -24,7 +23,6 @@ export abstract class Invite {
 		//////////////////////////////
 		// BUTTON
 		////////////////////
-
 		const inviteBtn = new MessageButton()
 			.setURL(invite)
 			.setStyle(MessageButtonStyles.LINK)
