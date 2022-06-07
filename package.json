@@ -14,6 +14,7 @@
     "license": "MIT",
     "dependencies": {
         "@discordx/importer": "^1.1.9",
+        "axios": "^0.27.2",
         "discord.js": "^13.7.0",
         "discordx": "^9.7.1",
         "dotenv": "^16.0.1",
