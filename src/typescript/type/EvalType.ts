@@ -1,0 +1,1 @@
+export type EvalType = "TS" | "JS"
