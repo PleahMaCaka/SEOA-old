@@ -1,5 +1,5 @@
 import { Client } from "discordx";
-import { ALL_INTENTS } from "./utils/AllIntents";
+import { ALL_INTENTS } from "./utils/bot/AllIntents";
 import { importx } from "@discordx/importer";
 import { Logger } from "./utils/Logger";
 import "dotenv/config"

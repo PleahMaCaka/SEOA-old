@@ -1,6 +1,6 @@
 import { ContextMenuInteraction, Message, MessageEmbed } from "discord.js";
 import { ContextMenu, Discord, Guild, Permission } from "discordx";
-import { asyncEval, evalTypeKeywords, JSEvalKeywords, tsAsyncEval, TSEvalKeywords } from "../../../utils/EvalHelper";
+import { asyncEval, evalTypeKeywords, JSEvalKeywords, tsAsyncEval, TSEvalKeywords } from "../../../utils/bot/EvalHelper";
 import { EvalType } from "../../../typescript/type/EvalType";
 
 @Discord()

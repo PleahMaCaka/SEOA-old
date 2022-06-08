@@ -1,4 +1,4 @@
-import { Logger } from "./Logger";
+import { Logger } from "../Logger";
 import * as ts from "typescript";
 
 /**
