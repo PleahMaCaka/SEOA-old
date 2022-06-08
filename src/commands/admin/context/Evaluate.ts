@@ -22,7 +22,7 @@ export abstract class ExampleContext {
 		//////////////////////////////
 		// Convert Message
 		////////////////////
-		let message: string | Message = await interaction.channel!!.messages.fetch(interaction.targetId)
+		let message: string | Message = await interaction.channel!.messages.fetch(interaction.targetId)
 		message = message.content
 
 		// remove backtick
@@ -81,7 +81,7 @@ export abstract class ExampleContext {
 
 		// HIDE **IMPORTANT** INFORMATION //
 		String(evaled)
-			.replaceAll(process.env.TOKEN!, "[!!!TOKEN!!!]")
+			.replaceAll(process.env.TOKEN as string, "[!!!TOKEN!!!]")
 		// HIDE **IMPORTANT** INFORMATION //
 
 		evalEmbed.addField(":outbox_tray: **OUTPUT**", `${String(evaled)}`, false)

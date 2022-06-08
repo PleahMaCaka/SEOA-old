@@ -16,17 +16,17 @@ export const evalTypeKeywords = [...JSEvalKeywords, ...TSEvalKeywords]
  */
 export async function asyncEval(code: string): Promise<any> {
 	try {
-		const evaled = eval(code)
+		const result = await eval(code)
 		Logger.log("DEBUG",
 			`EVALUATE LOG\n` +
 			`< JS EVALUATE START >\n` +
 			`    ▼  INPUT CODE  ▼\n` +
 			`${code}\n\n` +
 			`    ▼ RETURN VALUE ▼\n` +
-			`${evaled}\n\n` +
+			`${result}\n\n` +
 			`< EVALUATE END >`
 		)
-		return evaled
+		return result
 	} catch (e) {
 		Logger.log("ERROR", "Cannot evaluate javascript code, check the log")
 		console.log(e)
@@ -40,19 +40,19 @@ export async function asyncEval(code: string): Promise<any> {
 export async function tsAsyncEval(code: string): Promise<any> {
 	try {
 		// compile typescript code
-		const trans: string = ts.transpile(code)
+		const trans = ts.transpile(code)
 		// eval compiled code
-		const evaled: any = await asyncEval(trans)
+		const result = await asyncEval(trans)
 		Logger.log("DEBUG",
 			`EVALUATE LOG\n` +
 			`< TS EVALUATE START >\n` +
 			`    ▼  INPUT CODE  ▼\n` +
 			`${code}\n\n` +
 			`    ▼ RETURN VALUE ▼\n` +
-			`${evaled}\n\n` +
+			`${result}\n\n` +
 			`< EVALUATE END >`
 		)
-		return evaled
+		return result
 	} catch (e) {
 		Logger.log("ERROR", "Cannot evaluate typescript code, check the log")
 		console.log(e)
