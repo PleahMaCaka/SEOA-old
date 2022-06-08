@@ -1,7 +1,13 @@
 import { ContextMenuInteraction, Message, MessageEmbed } from "discord.js";
 import { ContextMenu, Discord, Guild, Permission } from "discordx";
-import { asyncEval, evalTypeKeywords, JSEvalKeywords, tsAsyncEval, TSEvalKeywords } from "../../../utils/bot/EvalHelper";
-import { EvalType } from "../../../typescript/type/EvalType";
+import {
+	asyncEval,
+	evalTypeKeywords,
+	JSEvalKeywords,
+	tsAsyncEval,
+	TSEvalKeywords
+} from "../../../utils/bot/EvalHelper";
+import { EvalType } from "../../../typescript/Evaluate";
 
 @Discord()
 @Permission(false)
@@ -68,7 +74,6 @@ export abstract class ExampleContext {
 		//////////////////////////////
 		// SEND RESULT
 		////////////////////
-
 		// convert to empty content to string
 		if (evaled === undefined) evaled = "undefined"
 		if (evaled === null) evaled = "null"

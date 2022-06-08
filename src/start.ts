@@ -15,7 +15,7 @@ async function start() {
 
 	if (!process.env.TOKEN)
 		return Logger.log("ERROR", "Stopped working because TOKEN didn't exist in *.env* file. The bot is not running.")
-	else await client.login(process.env.TOKEN!)
+	else await client.login(process.env.TOKEN)
 
 	Logger.log("DEBUG", "Test")
 }
