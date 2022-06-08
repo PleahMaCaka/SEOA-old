@@ -35,7 +35,6 @@
         "build": "tsc",
         "test": "jest",
         "heroku-start": "node build/src/start.js",
-        "postinstall": "yarn build",
         "heroku-log": "heroku logs --tail --app seoa-master"
     }
 }

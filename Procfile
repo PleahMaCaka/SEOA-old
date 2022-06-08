@@ -1,1 +1,1 @@
-worker: yarn install && yarn heroku-start
+worker: yarn heroku-start
