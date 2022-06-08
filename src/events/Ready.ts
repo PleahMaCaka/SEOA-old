@@ -16,6 +16,7 @@ class Ready {
 		await client.initApplicationPermissions()
 
 		Logger.log("INFO", `${client.user!.username} is ready!`)
+		Logger.log("DEBUG", "!DEBUG MODE IS ENABLED!")
 	}
 
 }
