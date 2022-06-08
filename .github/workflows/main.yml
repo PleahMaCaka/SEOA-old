@@ -1,4 +1,4 @@
-name: build
+name: main
 on:
   pull_request:
     branches:
@@ -9,6 +9,8 @@ on:
     paths-ignore:
       - .env.example
       - .deepsource.toml
+      - README.md
+      - .gitignore
   release:
     types: [ created ]
 
@@ -26,4 +28,4 @@ jobs:
         run: yarn install
 
       - name: Build
-        run: yarn install && yarn run build
+        run: yarn run build
