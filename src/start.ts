@@ -4,6 +4,8 @@ import { importx } from "@discordx/importer";
 import { Logger } from "./utils/Logger";
 import "dotenv/config"
 
+export const DEBUG: boolean = process.env.DEBUG === "true"
+
 const client = new Client({
 	intents: ALL_INTENTS,
 	partials: ["CHANNEL", "MESSAGE"],

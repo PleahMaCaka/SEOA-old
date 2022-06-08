@@ -1,5 +1,5 @@
 import "dotenv/config"
-import yn from "yn";
+import { DEBUG } from "../start"
 
 /**
  * Original Source File:
@@ -62,7 +62,7 @@ export class Logger {
 				return console.log(color.red, `${date} [ERROR] :: ${content}`, color.reset)
 
 			case Level.DEBUG:
-				if (yn(process.env.DEBUG)) return console.log(color.blue, `${date} [DEBUG] :: ${content}`, color.reset)
+				if (DEBUG) return console.log(color.blue, `${date} [DEBUG] :: ${content}`, color.reset)
 				else return
 
 			case Level.CRITICAL:
