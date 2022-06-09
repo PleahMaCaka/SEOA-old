@@ -4,7 +4,7 @@ declare global {
 			TOKEN: string | undefined
 			ADMIN: string | undefined
 			ADMIN_GUILD: string | undefined
-			DEBUG: string | boolean | undefined
+			DEBUG: string | undefined
 		}
 	}
 }
