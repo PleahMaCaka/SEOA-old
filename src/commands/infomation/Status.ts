@@ -1,7 +1,6 @@
 import { ButtonInteraction, CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 import { ButtonComponent, Client, Discord, Slash } from "discordx";
 import { MessageButtonStyles } from "discord.js/typings/enums";
-import { Memory } from "../../typescript/Memory";
 
 
 @Discord()
@@ -37,11 +36,15 @@ export abstract class Status {
 	private async adminStatusBtn(interaction: ButtonInteraction) {
 		const moreInfoEmbed = new MessageEmbed()
 			.setTitle("Admin Information")
+			.setColor("GREEN")
 
-		const memory: NodeJS.MemoryUsage = process.memoryUsage();
+		const memory: NodeJS.MemoryUsage = process.memoryUsage()
 
-		for (let key in memory) {
-			console.log(`Memory: ${key} ${Math.round(memory[key] / 1024 / 1024 * 100) / 100} MB`);
+		for (let key of Object.keys(memory)) {
+			moreInfoEmbed.addField(key, `${(memory[key as keyof typeof memory] / 1024 / 1024 * 100).toFixed()} MB`)
 		}
+
+		await interaction.reply({ ephemeral: true, embeds: [moreInfoEmbed] })
 	}
+
 }
