@@ -1,9 +1,11 @@
 import { ButtonInteraction, CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
-import { ButtonComponent, Client, Discord, Slash } from "discordx";
+import { ButtonComponent, Client, Discord, Slash, SlashGroup } from "discordx";
 import { MessageButtonStyles } from "discord.js/typings/enums";
 
 
 @Discord()
+@SlashGroup({ name: "봇", description: "봇에 대해 알아보세요!" })
+@SlashGroup("봇")
 export abstract class Status {
 
 	@Slash("상태", { description: "봇의 상태를 확인하세요!" })
@@ -41,7 +43,11 @@ export abstract class Status {
 		const memory: NodeJS.MemoryUsage = process.memoryUsage()
 
 		for (let key of Object.keys(memory)) {
-			moreInfoEmbed.addField(key, `${(memory[key as keyof typeof memory] / 1024 / 1024 * 100).toFixed()} MB`)
+			moreInfoEmbed.addField(
+				key,
+				`${(memory[key as keyof typeof memory] / 1024 / 1024 * 100).toFixed()} MB`,
+				true
+			)
 		}
 
 		await interaction.reply({ ephemeral: true, embeds: [moreInfoEmbed] })

@@ -1,9 +1,11 @@
 import { CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
-import { Client, Discord, Slash } from "discordx";
+import { Client, Discord, Slash, SlashGroup } from "discordx";
 import { MessageButtonStyles } from "discord.js/typings/enums";
-import { author, repository } from "../../../package.json";
+import { author, repository } from "../../../../package.json";
 
 @Discord()
+@SlashGroup({ name: "봇", description: "봇에 대해 알아보세요!" })
+@SlashGroup("봇")
 export abstract class About {
 
 	@Slash("정보", { description: "봇에 대해 알아보세요!", })
