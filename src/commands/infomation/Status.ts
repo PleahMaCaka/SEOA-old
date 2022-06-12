@@ -1,6 +1,7 @@
 import { ButtonInteraction, CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
 import { ButtonComponent, Client, Discord, Slash } from "discordx";
 import { MessageButtonStyles } from "discord.js/typings/enums";
+import { Memory } from "../../typescript/Memory";
 
 
 @Discord()
@@ -20,27 +21,27 @@ export abstract class Status {
 		await interaction.reply({ embeds: [embed] })
 
 		if (interaction.user.id === process.env.ADMIN) {
-			const adminBtn = new MessageButton()
-				.setLabel("more information")
-				.setStyle(MessageButtonStyles.SUCCESS)
-				.setCustomId("status-admin-info")
-
 			const row = new MessageActionRow()
-				.addComponents(adminBtn)
+				.addComponents(
+					new MessageButton()
+						.setLabel("more information")
+						.setStyle(MessageButtonStyles.SUCCESS)
+						.setCustomId("status-admin-info")
+				)
 
-			return await interaction.reply({ephemeral: true, components: [row] })
+			return await interaction.followUp({ ephemeral: true, components: [row] })
 		}
 	}
 
 	@ButtonComponent("status-admin-info")
 	private async adminStatusBtn(interaction: ButtonInteraction) {
-		const adminEmbed = new MessageEmbed()
+		const moreInfoEmbed = new MessageEmbed()
 			.setTitle("Admin Information")
 
-		for await (const [key, value] of Object.entries(process.memoryUsage)) {
-			adminEmbed.addField(key, value)
-		}
+		const memory: NodeJS.MemoryUsage = process.memoryUsage();
 
-		await interaction.followUp({ embeds: [adminEmbed] })
+		for (let key in memory) {
+			console.log(`Memory: ${key} ${Math.round(memory[key] / 1024 / 1024 * 100) / 100} MB`);
+		}
 	}
 }
