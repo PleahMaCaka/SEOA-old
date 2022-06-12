@@ -1,13 +1,9 @@
-import { ContextMenuInteraction, Message, MessageEmbed } from "discord.js";
+import { ContextMenuInteraction, MessageEmbed } from "discord.js";
 import { ContextMenu, Discord, Guild, Permission } from "discordx";
-import {
-	asyncEval,
-	evalTypeKeywords,
-	JSEvalKeywords,
-	tsAsyncEval,
-	TSEvalKeywords
-} from "../../../utils/bot/EvalHelper";
 import { EvalType } from "../../../typescript/Evaluate";
+import { Logger } from "../../../utils/Logger";
+import * as ts from "typescript";
+import { inspect } from "util";
 
 @Discord()
 @Permission(false)
@@ -22,34 +18,47 @@ export abstract class ExampleContext {
 		//////////////////////////////
 		// Convert Message
 		////////////////////
-		let message: string | Message = await interaction.channel!.messages.fetch(interaction.targetId)
-		message = message.content
+		let message: string
+		message = await interaction.channel!.messages.fetch(interaction.targetId).then(msg => message = msg.content)
 
-		// remove backtick
+		// remove backticks
 		if (message.startsWith("```") && message.endsWith("```")) {
 			// code can contain backtick
-			for (let i = 0; i < 2; i++) {
+			for (let i = 0; i < 2; i++)
 				message = message.replace("```", "")
-				message = message.split("").reverse().join("")
-			}
-		} else return await interaction.editReply("코드 블럭이 아닙니다.")
+					.split("").reverse().join("")
+		} else return await interaction.editReply("not a codeblock")
+
 
 		//////////////////////////////
 		// CHECK LANG
 		////////////////////
-		let evalType: EvalType | undefined = undefined
+		let evalType: EvalType | undefined
 
-		evalTypeKeywords.forEach(word => {
-			message = String(message)
-			if (message.startsWith(word)) {
-				message = message.replace(`${word}\n`, "")
-				if (JSEvalKeywords.includes(word)) evalType = "JS"
-				else if (TSEvalKeywords.includes(word)) evalType = "TS"
-			}
-		})
+		const JSKeywords = ["javascript", "js", "JAVASCRIPT", "JS", "JavaScript"]
+		const TSKeywords = ["typescript", "ts", "TYPESCRIPT", "TS", "TypeScript"]
+		const keywords: Array<string> = [...JSKeywords, ...TSKeywords]
 
-		if (message === undefined || evalType === undefined)
-			return await interaction.editReply("JS/TS 코드가 아닙니다.")
+		const getCodeblockLang = async () => {
+			keywords.forEach((word) => {
+				if (message.startsWith(word)) {
+					JSKeywords.find(w => {
+						if (w === word)
+							evalType = "JS";
+					});
+					TSKeywords.find(w => {
+						if (w === word)
+							evalType = "TS";
+					});
+					if (evalType)
+						message = message.replace(`${word}\n`, "");
+					if (!evalType)
+						return interaction.reply("Is not JS/TS codeblock.");
+				}
+			})
+		}
+		await getCodeblockLang()
+
 
 		//////////////////////////////
 		// CODE EXECUTE
@@ -58,35 +67,58 @@ export abstract class ExampleContext {
 			.setTitle("Evaluate")
 			.setColor("#bc92ff")
 
-		let evaled: any
+		let result: any
 
-		switch (evalType) {
-			case "JS":
-				evaled = await asyncEval(message)
-				evalEmbed.addField(":inbox_tray: **INPUT**", `\`\`\`js\n${message}\`\`\``, false)
-				break
-			case "TS":
-				evaled = await tsAsyncEval(message)
-				evalEmbed.addField(":inbox_tray: **INPUT**", `\`\`\`ts\n${message}\`\`\``, false)
-				break
+
+		try {
+			if (!evalType) return await interaction.editReply("something wrong!")
+			switch (evalType) {
+				case "JS":
+					result = await eval(message)
+					break
+				case "TS":
+					const compile = ts.transpile(message)
+					result = await eval(compile)
+					break
+			}
+			inspect(result, { depth: 0 })
+			evalEmbed.addField(":inbox_tray: **INPUT**", `\`\`\`${evalType}\n${message}\`\`\``, false)
+		} catch (e) {
+			evalEmbed.addField(":warning: **ERROR**", `\`\`\`${evalType}\n${e}\`\`\``, false)
+			Logger.log("ERROR", `Cannot evaluate ${evalType} code, check the console`)
+			console.log(e)
 		}
+
 
 		//////////////////////////////
 		// SEND RESULT
 		////////////////////
+		// Logging
+		Logger.log("DEBUG",
+			`EVALUATE LOG\n` +
+			`< ${evalType} EVALUATE START >\n` +
+			`▼  INPUT CODE  ▼\n` +
+			`${message}\n\n` +
+			`▼ RETURN VALUE ▼\n` +
+			`${result}\n\n` +
+			`<   EVALUATE  END   >`
+		)
+
 		// convert to empty content to string
-		if (evaled === undefined) evaled = "undefined"
-		if (evaled === null) evaled = "null"
-		else evaled = evaled as unknown as string
+		if (result === undefined) result = "undefined"
+		if (result === null) result = "null"
+		else result = result as unknown as string
 
 		// HIDE **IMPORTANT** INFORMATION //
-		String(evaled)
+		String(result)
 			.replaceAll(process.env.TOKEN as string, "[!!!TOKEN!!!]")
-		// HIDE **IMPORTANT** INFORMATION //
 
-		evalEmbed.addField(":outbox_tray: **OUTPUT**", `${String(evaled)}`, false)
+		evalEmbed.addField(":outbox_tray: **OUTPUT**", `${String(result)}`, false)
 
 		await interaction.editReply({ embeds: [evalEmbed] });
 		// TODO save to db and upload to hastebin
+		// TODO original code message hyperlink
+		// TODO allow `js> stuff()`
 	}
+
 }
