@@ -23,7 +23,7 @@ export abstract class ExampleContext {
 
 		// remove backticks
 		if (message.startsWith("```") && message.endsWith("```")) {
-			// code can contain backtick
+			// code can contain backticks
 			for (let i = 0; i < 2; i++)
 				message = message.replace("```", "")
 					.split("").reverse().join("")
@@ -42,19 +42,13 @@ export abstract class ExampleContext {
 		const getCodeblockLang = async () => {
 			keywords.forEach((word) => {
 				if (message.startsWith(word)) {
-					JSKeywords.find(w => {
-						if (w === word)
-							evalType = "JS";
-					});
-					TSKeywords.find(w => {
-						if (w === word)
-							evalType = "TS";
-					});
-					if (evalType)
-						message = message.replace(`${word}\n`, "");
-					if (!evalType)
-						return interaction.reply("Is not JS/TS codeblock.");
+					JSKeywords.forEach((keyword) => evalType = (word.lastIndexOf(keyword)) ? "JS" : undefined)
+					TSKeywords.forEach((keyword) => evalType = (word.lastIndexOf(keyword)) ? "TS" : undefined)
 				}
+				if (evalType)
+					message = message.replace(`${word}\n`, "")
+				if (!evalType)
+					return interaction.editReply("Is not JS/TS codeblock.")
 			})
 		}
 		await getCodeblockLang()
