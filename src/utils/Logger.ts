@@ -26,9 +26,8 @@ const color = {
 	reset: "\x1b[0m"
 }
 
-const date: Date = new Date()
-
 function getDate(): string {
+	const date: Date = new Date()
 	return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`
 }
 

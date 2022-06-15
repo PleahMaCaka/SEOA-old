@@ -7,6 +7,11 @@ SEOA.iml
 node_modules
 yarn-error.log
 build
+coverage
+
+# MISS PREVENT
+src/**/*.js
+test/**/*.js
 
 # TOP SECRET
 .env

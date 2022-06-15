@@ -11,7 +11,7 @@
         "lib": [
             "ESNext"
         ],
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "strict": true,
         "sourceMap": false,
         "forceConsistentCasingInFileNames": true,
@@ -21,6 +21,8 @@
         "./src/**/*.ts"
     ],
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "jest.config.ts",
+        "./test/**/*.ts"
     ]
 }
