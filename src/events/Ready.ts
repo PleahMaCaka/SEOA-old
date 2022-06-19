@@ -1,6 +1,6 @@
-import { ArgsOf, Client, Discord, Once } from "discordx";
-import { connectMongoDB } from "../mongo/Mongo";
-import { Logger } from "../utils/Logger";
+import { ArgsOf, Client, Discord, Once } from "discordx"
+import { connectMongoDB } from "../mongo/Mongo"
+import { Logger } from "../utils/Logger"
 
 @Discord()
 class Ready {

@@ -1,6 +1,6 @@
-import { ButtonInteraction, CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
-import { ButtonComponent, Client, Discord, Slash, SlashGroup } from "discordx";
-import { MessageButtonStyles } from "discord.js/typings/enums";
+import { ButtonInteraction, CommandInteraction, MessageActionRow, MessageButton, MessageEmbed } from "discord.js"
+import { MessageButtonStyles } from "discord.js/typings/enums"
+import { ButtonComponent, Client, Discord, Slash, SlashGroup } from "discordx"
 
 
 @Discord()

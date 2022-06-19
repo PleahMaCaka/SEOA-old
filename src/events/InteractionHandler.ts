@@ -1,5 +1,5 @@
-import { ArgsOf, Client, Discord, On } from "discordx";
-import { Logger } from "../utils/Logger";
+import { ArgsOf, Client, Discord, On } from "discordx"
+import { Logger } from "../utils/Logger"
 
 @Discord()
 class InteractionHandler {

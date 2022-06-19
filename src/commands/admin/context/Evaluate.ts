@@ -1,9 +1,9 @@
-import { ContextMenuInteraction, MessageEmbed } from "discord.js";
-import { ContextMenu, Discord, Guild, Permission } from "discordx";
-import { EvalType } from "../../../typescript/Evaluate";
-import { Logger } from "../../../utils/Logger";
-import * as ts from "typescript";
-import { inspect } from "util";
+import { ContextMenuInteraction, MessageEmbed } from "discord.js"
+import { ContextMenu, Discord, Guild, Permission } from "discordx"
+import * as ts from "typescript"
+import { inspect } from "util"
+import { EvalType } from "../../../typescript/Evaluate"
+import { Logger } from "../../../utils/Logger"
 
 @Discord()
 @Permission(false)
@@ -109,7 +109,7 @@ export abstract class ExampleContext {
 
 		evalEmbed.addField(":outbox_tray: **OUTPUT**", `${String(result)}`, false)
 
-		await interaction.editReply({ embeds: [evalEmbed] });
+		await interaction.editReply({ embeds: [evalEmbed] })
 		// TODO save to db and upload to hastebin
 		// TODO original code message hyperlink
 		// TODO allow `js> stuff()`
