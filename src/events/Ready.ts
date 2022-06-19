@@ -1,4 +1,5 @@
 import { ArgsOf, Client, Discord, Once } from "discordx";
+import { connectMongoDB } from "../mongo/Mongo";
 import { Logger } from "../utils/Logger";
 
 @Discord()
@@ -17,6 +18,8 @@ class Ready {
 
 		Logger.log("INFO", `${client.user!.username} is ready!`)
 		Logger.log("DEBUG", "!DEBUG MODE IS ENABLED!")
+
+		await connectMongoDB().then(() => Logger.log("INFO", "MongoDB Connected!"))
 	}
 
 }
