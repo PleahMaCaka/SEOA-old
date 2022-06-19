@@ -5,6 +5,7 @@ import { Logger } from "../utils/Logger"
 @Discord()
 class Ready {
 
+	// noinspection JSUnusedLocalSymbols
 	@Once("ready")
 	private async ready(
 		[ready]: ArgsOf<"ready">,
