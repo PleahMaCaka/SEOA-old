@@ -1,4 +1,4 @@
-export interface HastebinData {
+export interface IHastebinData {
 	key: string
 	description?: string
 	timestamp: number
