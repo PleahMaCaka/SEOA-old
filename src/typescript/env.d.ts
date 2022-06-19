@@ -5,6 +5,7 @@ declare global {
 			ADMIN: string | undefined
 			ADMIN_GUILD: string | undefined
 			DEBUG: string | undefined
+			DB_URI: string | undefined
 		}
 	}
 }
