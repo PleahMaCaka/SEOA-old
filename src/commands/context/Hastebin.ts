@@ -1,6 +1,9 @@
-import { ContextMenuInteraction, MessageActionRow, MessageButton, MessageEmbed } from "discord.js";
-import { ContextMenu, Discord } from "discordx";
-import axios from "axios";
+import axios from "axios"
+import { ContextMenuInteraction, MessageActionRow, MessageButton, MessageEmbed } from "discord.js"
+import { ContextMenu, Discord } from "discordx"
+import { user } from "../../mongo/models/UserData"
+import { checkRegister } from "../../mongo/Mongo"
+import { IHastebinData } from "../../typescript/mongo/user/data/IHastebinData"
 
 @Discord()
 export abstract class Hastebin {
@@ -61,10 +64,29 @@ export abstract class Hastebin {
 			const row = new MessageActionRow()
 				.addComponents(goHaste, goRawHaste)
 
-			// TODO save to db btn
+
+			//////////////////////////////
+			// SAVE DATA
+			////////////////////
+			const data: IHastebinData = {
+				key: res.data.key,
+				timestamp: Date.now(),
+				guild: interaction.inGuild() ? {
+					guildId: interaction.guildId,
+					channelId: interaction.channelId,
+					messageId: interaction.targetId
+				} : undefined
+			}
+
+			await checkRegister(interaction).then(async () => {
+				const oldData = await user.findOne({ id: interaction.user.id })
+				await user.updateOne(
+					{ id: interaction.user.id },
+					{ hastebin: [data, ...oldData!.hastebin] }
+				)
+			})
 
 			return await interaction.editReply({ embeds: [successEmbed], components: [row] })
 		}
 	}
-
 }
