@@ -1,8 +1,8 @@
-import { Client } from "discordx";
-import { ALL_INTENTS } from "./utils/AllIntents";
-import { importx } from "@discordx/importer";
-import { Logger } from "./utils/Logger";
+import { importx } from "@discordx/importer"
+import { Client } from "discordx"
 import "dotenv/config"
+import { ALL_INTENTS } from "./utils/AllIntents"
+import { Logger } from "./utils/Logger"
 
 export const DEBUG: boolean = process.env.DEBUG === "true"
 

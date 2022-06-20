@@ -1,9 +1,9 @@
-import * as mongoose from "mongoose";
+import * as mongoose from "mongoose"
 
 export const hastebinData = new mongoose.Schema({
-	key: String,
+	key: { type: String, required: true },
 	description: { type: String, required: false },
-	timestamp: Date,
+	timestamp: { type: Date, required: true },
 	guild: {
 		required: false,
 		guildId: { type: String, required: false },
