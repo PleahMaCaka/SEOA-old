@@ -1,7 +1,7 @@
 import axios from "axios"
 import { ContextMenuInteraction, MessageActionRow, MessageButton, MessageEmbed } from "discord.js"
 import { ContextMenu, Discord } from "discordx"
-import { user } from "../../mongo/models/UserData"
+import { user } from "../../mongo/models/UserData";
 import { checkRegister } from "../../mongo/Mongo"
 import { IHastebinData } from "../../typescript/mongo/user/data/IHastebinData"
 
@@ -46,9 +46,13 @@ export abstract class Hastebin {
 		// UPLOAD SUCCESS
 		////////////////////
 		if (res.status === 200) {
+			const { guildId, channelId, targetId } = interaction // can't be using `user`, already using in mongo
 			const successEmbed = new MessageEmbed()
 				.setTitle(":white_check_mark: 업로드 성공!")
-				.setDescription(`아래 버튼을 눌러 확인하세요. \`[${res.data.key}]\``)
+				.setDescription(`
+					아래 버튼을 눌러 확인하세요.
+					<@${interaction.user.id}> » [저장된 메세지](https://discord.com/channels/${guildId}/${channelId}/${targetId})
+				`)
 				.setColor("GREEN")
 
 			const goHaste = new MessageButton()
