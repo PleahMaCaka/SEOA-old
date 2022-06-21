@@ -10,4 +10,7 @@ export const hastebinData = new mongoose.Schema({
 		channelId: { type: String, required: false },
 		messageId: { type: String, required: false }
 	}
+}, {
+	_id: false,
+	versionKey: false
 })
