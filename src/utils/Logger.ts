@@ -52,20 +52,22 @@ export class Logger {
 		const date = `[${getDate()}] ::`
 		switch (type) {
 			case Level.INFO:
-				return console.log(color.green, `${date} [INFO] :: ${content}`, color.reset)
+				return console.info(color.green, `${date} [INFO] :: ${content}`, color.reset)
 
 			case Level.WARN:
-				return console.log(color.yellow, `${date} [WARN] :: ${content}`, color.reset)
+				return console.warn(color.yellow, `${date} [WARN] :: ${content}`, color.reset)
 
 			case Level.ERROR:
-				return console.log(color.red, `${date} [ERROR] :: ${content}`, color.reset)
+				return console.error(color.red, `${date} [ERROR] :: ${content}`, color.reset)
 
 			case Level.DEBUG:
-				if (DEBUG) return console.log(color.blue, `${date} [DEBUG] :: ${content}`, color.reset)
+				if (DEBUG) return console.debug(color.blue, `${date} [DEBUG] :: ${content}`, color.reset)
 				else return
 
 			case Level.CRITICAL:
-				return console.log(color.red + color.bold, `${date} [CRITICAL] :: ${content}`, color.reset)
+				console.log(color.red + color.bold, "======================================================================", color.reset)
+				console.error(color.red + color.bold, `${date} [CRITICAL] :: ${content}`, color.reset)
+				return console.log(color.red + color.bold, "======================================================================", color.reset)
 
 			default:
 				throw new TypeError("The logger must be of one of the following types: INFO, WARN, ERROR, DEBUG, CRITICAL")
