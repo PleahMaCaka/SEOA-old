@@ -17,7 +17,10 @@ export async function connectMongoDB() {
 
 	await connect(uri,
 		(error) => {
-			if (error) return console.error(error)
+			if (error) {
+				Logger.log("ERROR", "MongoDB connection error: " + error)
+				throw new Error()
+			}
 			else Logger.log("INFO", "MongoDB Connected!")
 		})
 }
