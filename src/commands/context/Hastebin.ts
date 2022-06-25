@@ -4,6 +4,7 @@ import { ContextMenu, Discord } from "discordx"
 import { user } from "../../mongo/models/UserData";
 import { checkRegister } from "../../mongo/Mongo"
 import { IHastebinData } from "../../typescript/mongo/user/data/IHastebinData"
+import { Emoji } from "../../utils/Emoji";
 
 @Discord()
 export abstract class Hastebin {
@@ -19,7 +20,7 @@ export abstract class Hastebin {
 		////////////////////
 		if (message.content === undefined || message.content.length === 0) {
 			const tooShortEmbed = new MessageEmbed()
-				.setTitle(`:warning: 업로드 실패!`)
+				.setTitle(`${Emoji.FAIL} 업로드 실패!`)
 				.setDescription("임베드, 이미지, 파일(준비중)등은 업로드가 불가합니다.")
 				.setColor("RED")
 			return await interaction.editReply({ embeds: [tooShortEmbed] })
@@ -36,7 +37,7 @@ export abstract class Hastebin {
 		////////////////////
 		if (res.status !== 200) {
 			const errorEmbed = new MessageEmbed()
-				.setTitle(":warning: 업로드 실패!")
+				.setTitle(`${Emoji.FAIL} 업로드 실패!`)
 				.setDescription(`Code: ${res.status}, 다시 시도 후 실패 시 관리자에게 문의하세요. \`/문의\``)
 				.setColor("RED")
 			return await interaction.editReply({ embeds: [errorEmbed] })
@@ -48,7 +49,7 @@ export abstract class Hastebin {
 		if (res.status === 200) {
 			const { guildId, channelId, targetId } = interaction // can't be using `user`, already using in mongo
 			const successEmbed = new MessageEmbed()
-				.setTitle(":white_check_mark: 업로드 성공!")
+				.setTitle(`${Emoji.SUCCESS} 업로드 성공!`)
 				.setDescription(`
 					아래 버튼을 눌러 확인하세요.
 					<@${interaction.user.id}> » [저장된 메세지](https://discord.com/channels/${guildId}/${channelId}/${targetId})
