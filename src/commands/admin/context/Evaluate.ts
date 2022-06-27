@@ -39,20 +39,15 @@ export abstract class ExampleContext {
 		const TSKeywords = ["typescript", "ts", "TYPESCRIPT", "TS", "TypeScript"]
 		const keywords: Array<string> = [...JSKeywords, ...TSKeywords]
 
-		const getCodeblockLang = async () => {
-			keywords.forEach((word) => {
-				if (message.startsWith(word)) {
-					JSKeywords.forEach((keyword) => evalType = (word.lastIndexOf(keyword)) ? "JS" : undefined)
-					TSKeywords.forEach((keyword) => evalType = (word.lastIndexOf(keyword)) ? "TS" : undefined)
-				}
-				if (evalType)
-					message = message.replace(`${word}\n`, "")
-				if (!evalType)
-					return interaction.editReply("Is not JS/TS codeblock.")
-			})
+		let lang: string | undefined
+		for await (const keyword of keywords) {
+			if (message.startsWith(keyword)) lang = keyword
+			if (JSKeywords.includes(keyword)) evalType = "JS"
+			else if (TSKeywords.includes(keyword)) evalType = "TS"
 		}
-		await getCodeblockLang()
 
+		if (lang) message = message.replace(lang + "\n", "")
+		if (!evalType || !lang) return await interaction.editReply("not a valid language")
 
 		//////////////////////////////
 		// CODE EXECUTE
@@ -62,7 +57,6 @@ export abstract class ExampleContext {
 			.setColor("#bc92ff")
 
 		let result: any
-
 
 		try {
 			if (!evalType) return await interaction.editReply("something wrong!")
@@ -82,7 +76,6 @@ export abstract class ExampleContext {
 			Logger.log("ERROR", `Cannot evaluate ${evalType} code, check the console`)
 			console.log(e)
 		}
-
 
 		//////////////////////////////
 		// SEND RESULT
