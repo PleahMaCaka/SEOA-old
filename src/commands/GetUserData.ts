@@ -5,22 +5,22 @@ import { user } from "../mongo/models/UserData";
 @Discord()
 @SlashGroup({ name: "데이터" })
 @SlashGroup({ name: "관리", description: "Manage your own data!", root: "데이터" })
-export abstract class SlashGroupExample2 {
+export abstract class HastebinDAta {
 
-	@Slash("찾기")
+	@Slash("hastebin")
 	@SlashGroup("데이터")
-	private async getData(
-		@SlashChoice("Hastebin", "곧 추가됩니다!")
+	private async getHastebinData(
+		@SlashChoice("찾기", "삭제")
 		@SlashOption("type")
 			type: string,
 		interaction: CommandInteraction
 	): Promise<void> {
 		await interaction.deferReply({ ephemeral: false }) // TODO ephemeral config
 
-		switch (type) {
-			case "Hastebin":
-				const userdata = await user.findOne({ id: interaction.user.id })
+		const userdata = await user.findOne({ id: interaction.user.id })
 
+		switch (type) {
+			case "찾기":
 				let hastebinData = ""
 				if (userdata) {
 					for await (const data of userdata.hastebin) {
@@ -36,17 +36,10 @@ export abstract class SlashGroupExample2 {
 					.setDescription(hastebinData ? hastebinData : "저장된 정보가 없습니다.")
 				await interaction.editReply({ embeds: [hastebinEmbed] })
 				return
-			case "곧 추가됩니다!":
+			case "삭제":
 				await interaction.deleteReply()
 				return
 		}
 	}
 
-	@Slash("삭제")
-	@SlashGroup("데이터")
-	private async removeData(
-		interaction: CommandInteraction
-	): Promise<void> {
-		await interaction.reply("HE HE BOYY")
-	}
 }
