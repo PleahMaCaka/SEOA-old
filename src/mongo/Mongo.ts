@@ -19,7 +19,7 @@ export async function connectMongoDB() {
 		DB_URI.replace("localhost", "127.0.0.1")
 	}
 
-	if (DB_URI != "mongodb://localhost:27017")
+	if (DB_URI != "mongodb://127.0.0.1:27017")
 		if (!DB_URI || !DB_USER || !DB_PASS)
 			throw new Error("You have to set your MongoDB URI, username and password in your env (or .env file)")
 
