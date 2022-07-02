@@ -2,7 +2,7 @@ import { Interaction } from "discord.js"
 import { connect } from "mongoose"
 import { DEBUG } from "../start";
 import { Logger } from "../utils/Logger"
-import { user } from "./models/UserData";
+import { user } from "./schema/UserData";
 
 
 const DB_URI = process.env.DB_URI ? process.env.DB_URI : "mongodb://localhost:27017"

@@ -1,7 +1,7 @@
 import axios from "axios"
 import { ContextMenuInteraction, MessageActionRow, MessageButton, MessageEmbed } from "discord.js"
 import { ContextMenu, Discord } from "discordx"
-import { user } from "../../mongo/models/UserData";
+import { user } from "../../mongo/schema/UserData";
 import { checkRegister } from "../../mongo/Mongo"
 import { IHastebinData } from "../../typescript/mongo/user/data/IHastebinData"
 import { Emoji } from "../../utils/Emoji";
