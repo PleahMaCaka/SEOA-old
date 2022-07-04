@@ -1,6 +1,6 @@
 import { CommandInteraction, MessageEmbed } from "discord.js"
 import { Discord, Slash, SlashChoice, SlashGroup, SlashOption } from "discordx"
-import { user } from "../mongo/schema/UserData";
+import { user } from "../../../mongodb/schema/UserData";
 
 @Discord()
 @SlashGroup({ name: "데이터" })

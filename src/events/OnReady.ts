@@ -1,9 +1,9 @@
 import { ArgsOf, Client, Discord, Once } from "discordx"
-import { connectMongoDB } from "../mongo/Mongo"
+import { connectMongoDB } from "../mongodb/Mongo";
 import { Logger } from "../utils/Logger"
 
 @Discord()
-class Ready {
+class OnReady {
 
 	// noinspection JSUnusedLocalSymbols
 	@Once("ready")

@@ -2,7 +2,6 @@ import { ContextMenuInteraction, MessageEmbed } from "discord.js"
 import { ContextMenu, Discord, Guild, Permission } from "discordx"
 import * as ts from "typescript"
 import { inspect } from "util"
-import { EvalType } from "../../../typescript/Evaluate"
 import { Logger } from "../../../utils/Logger"
 
 @Discord()
@@ -33,6 +32,7 @@ export abstract class ExampleContext {
 		//////////////////////////////
 		// CHECK LANG
 		////////////////////
+		type EvalType = "TS" | "JS"
 		let evalType: EvalType | undefined
 
 		const JSKeywords = ["javascript", "js", "JAVASCRIPT", "JS", "JavaScript"]

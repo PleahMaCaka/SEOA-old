@@ -1,5 +1,5 @@
 import * as mongoose from "mongoose"
-import { IUserSchema } from "../../typescript/mongo/user/IUserSchema"
+import { IUserSchema } from "../interface/user/IUserSchema"
 import { hastebinData } from "./data/HastebinData"
 
 export const userSchema = new mongoose.Schema({
