@@ -2,7 +2,7 @@ import { ArgsOf, Client, Discord, On } from "discordx"
 import { Logger } from "../utils/Logger"
 
 @Discord()
-class GuildCreate {
+class JoinToDeploy {
 
 	@On("guildCreate")
 	private async joinToInitCommands(
